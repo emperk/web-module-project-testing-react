@@ -5,8 +5,7 @@ const formatSeasons = (allEpisodes) => {
   const seasons = [
     {id:0, name: "Season 1", episodes: []}, 
     {id:1, name: "Season 2", episodes: []}, 
-    {id:2, name: "Season 3", episodes: []}, 
-    {id:3, name: "Season 4", episodes: []}
+    {id:2, name: "Season 3", episodes: []}
   ];
 
   allEpisodes.forEach((episode) => {
@@ -23,7 +22,7 @@ const formatSeasons = (allEpisodes) => {
 
 const fetchShow = () => {
   return axios
-    .get("https://api.tvmaze.com/singlesearch/shows?q=stranger-things&embed=episodes")
+    .get("https://api.tvmaze.com/shows/1/episodes")
     .then(res => {
       const { data } = res;
       
@@ -31,7 +30,7 @@ const fetchShow = () => {
         name: data.name,
         image: data.image,
         summary: stripTags(data.summary),
-        seasons: formatSeasons(data._embedded.episodes)
+        seasons: formatSeasons(data.episodes)
       };
     });
 };
